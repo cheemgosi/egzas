@@ -6,14 +6,13 @@ const naujasServisas = () => {
         <div>
             <DashNavbar />
             <div className='container-xl bg-secondary'>
-            <form action="/submit_servisas" method="post">
+            <form action="/submit_servisas" method="post" className='text-center p-5'>
+                <p className='fs-2'>Pridėti naują servisą</p>
                 <div>
-                  <label for="pavadinimas">Pavadinimas:</label>
-                  <input type="text" id="pavadinimas" name="pavadinimas" required/>
+                  <input type="text" id="pavadinimas" name="pavadinimas" placeholder='Pavadinimas' className='my-2' required/>
                 </div>
                 <div>
-                  <label for="miestas">Miestas:</label>
-                  <input type="text" id="miestas" name="miestas" required/>
+                  <input type="text" id="miestas" name="miestas" placeholder='Miestas' className='my-2' required/>
                 </div>
                 <div>
                   <input type="submit" value="Submit"/>
