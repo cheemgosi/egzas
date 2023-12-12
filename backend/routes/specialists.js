@@ -7,6 +7,7 @@ const {
     updateSpecialist,
     deleteSpecialist
 } = require('../controllers/specialists');
+const AccountModel = require('../models/user');
 
 const specialistRouter = express.Router();
 
