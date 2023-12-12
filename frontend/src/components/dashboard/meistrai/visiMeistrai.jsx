@@ -66,9 +66,11 @@ const VisiMeistrai = () => {
                                     <td>{specialist.service}</td>
                                     <td>{specialist.city}</td>
                                     <td>
-                                        <div className="col-lg-1 opposite py-2 ">
+                                        <div className="col-lg-1 opposite py-2">
                                             <i className="bi bi-x-lg text-danger dark-on-hover"></i>
                                             <i className="bi bi-pencil text-warning dark-on-hover"></i>
+                                            <button type="button" className="btn btn-success disabled">Išsaugoti</button>
+
                                         </div>
                                     </td>
                                 </tr>
