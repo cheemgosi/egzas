@@ -1,4 +1,5 @@
-require('dotenv').config({ path: __dirname + '/.env' });
+const path = require('path');
+require('dotenv').config({ path: `${path.resolve(__dirname + '/..')}/.env` });
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const userRouter = require('./routes/user');
