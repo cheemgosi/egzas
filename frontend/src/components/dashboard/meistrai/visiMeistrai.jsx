@@ -39,47 +39,45 @@ const VisiMeistrai = () => {
             </div>
 
             <div className='row fs-4 border-top border-dark'>
-                <table className="table table-striped table-bordered">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>Vardas</th>
-                            <th>Pavardė</th>
-                            <th>Specializacija</th>
-                            <th>Nuotrauka</th>
-                            <th>Servisas</th>
-                            <th>Miestas</th>
-                            <th>Veiksmai</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {error ? (
-                            <tr>
-                                <td colSpan="7">Error: {error}</td>
-                            </tr>
-                        ) : (
-                            specialists.map((specialist) => (
-                                <tr key={specialist.id}>
-                                    <td>{specialist.firstName}</td>
-                                    <td>{specialist.lastName}</td>
-                                    <td>{specialist.specialization}</td>
-                                    <td>{specialist.photo}</td>
-                                    <td>{specialist.service}</td>
-                                    <td>{specialist.city}</td>
-                                    <td>
-                                        <div className="col-lg-1 opposite py-2">
-                                            <i className="bi bi-x-lg text-danger dark-on-hover"></i>
-                                            <i className="bi bi-pencil text-warning dark-on-hover"></i>
-                                            <button type="button" className="btn btn-success disabled">Išsaugoti</button>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                {error ? (
+                    <div className="col-lg-12">
+                        Error: {error}
+                    </div>
+                ) : (
+                    specialists.map((specialist) => (
+                        <div className="row">
+                            <div className="row col-lg-12 border-bottom border-dark py-2" key={specialist.id}>
+                                <div className="row col-lg-10 ">
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.firstName}
+                                    </div>
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.lastName}
+                                    </div>
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.specialization}
+                                    </div>
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.photo}
+                                    </div>
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.service}
+                                    </div>
+                                    <div className="col-lg-2 border border-top-0 border-bottom-0 ">
+                                        {specialist.city}
+                                    </div>
+                                </div>
+                                <div className="col-lg-2">
+                                    <div className="col-lg-1 opposite py-2">
+                                        <i className="bi bi-x-lg text-danger dark-on-hover"></i>
+                                        <i className="bi bi-pencil text-warning dark-on-hover"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                )}
             </div>
-
         </div>
     );
 };
