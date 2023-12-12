@@ -21,6 +21,10 @@ const specialistSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rating: {
+        type: Number,
+        default: 0
+    },
     city: {
         type: String,
         required: true

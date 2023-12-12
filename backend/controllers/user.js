@@ -37,7 +37,7 @@ exports.register = async (req, res) => {
         const newUser = new AccountModel({ email, username, password: hashedPassword });
         await newUser.save();
 
-        const token = JWT.sign({ user: newUser._id, username: newUser.username, role: newUser.role }, process.env.Secret);
+        const token = JWT.sign({ user: newUser._id, username: newUser.username, admin: newUser.admin }, process.env.Secret);
         res.cookie("token", token, { httpOnly: true }).send();
     } catch (error) {
         console.error(error);
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
         if (!passwordCorrect)
             return res.status(401).json({ errorMessage: "Incorrect authentication values, please try a different password or email." });
 
-        const token = JWT.sign({ user: user._id, username: user.username, role: user.admin }, process.env.Secret);
+        const token = JWT.sign({ user: user._id, username: user.username, admin: user.admin }, process.env.Secret);
 
         const session = {
             jwtToken: token,
