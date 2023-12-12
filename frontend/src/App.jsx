@@ -5,6 +5,7 @@ import './assets/scss/main.scss'
 import Servisai from "./pages/dashboard/sub-sections/servisai";
 import Meistrai from "./pages/dashboard/sub-sections/meistrai";
 import Vartotojai from "./pages/dashboard/sub-sections/vartotojai";
+import NaujasServisas from "./components/dashboard/servisai/naujasServisas";
 
 function App() {
   return (
@@ -12,9 +13,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/admin" element={<DashMain/>}></Route>
-          <Route path="/admin/servisai" element={<Servisai />} />
-          <Route path="/admin/meistrai" element={<Meistrai />} />
-          <Route path="/admin/vartotojai" element={<Vartotojai />} />
+            <Route path="/admin/servisai" element={<Servisai />} />
+              <Route path="/admin/servisai/naujas" element={<NaujasServisas />} />
+            <Route path="/admin/meistrai" element={<Meistrai />} />
+            <Route path="/admin/vartotojai" element={<Vartotojai />} />
         </Routes>
       </BrowserRouter>
     </div>
