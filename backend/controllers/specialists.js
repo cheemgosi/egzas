@@ -31,6 +31,7 @@ exports.addSpecialist = async (req, res) => {
         const specialist = await SpecialistModel.create(req.body);
         console.log(specialist)
         const savedSpecialist = await specialist.save();
+        console.log(savedSpecialist)
 
         res.status(201).json({ message: 'Specialist added successfully', specialist: savedSpecialist });
     } catch (error) {
