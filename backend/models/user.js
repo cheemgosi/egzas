@@ -40,7 +40,7 @@ const accountSchema = new mongoose.Schema({
     },
     sessions: {
         type: [sessionSchema],
-        default: []
+        sparse: true
     }
 });
 
