@@ -41,6 +41,6 @@ const accountSchema = new mongoose.Schema({
     sessions: [sessionSchema]
 });
 
-const AccountModel = mongoose.model("Account", accountSchema, "users");
+const AccountModel = mongoose.model("account", accountSchema, "users");
 
 module.exports = AccountModel;

@@ -29,9 +29,7 @@ exports.addSpecialist = async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields' });
         
         const specialist = await SpecialistModel.create(req.body);
-        console.log(specialist)
         const savedSpecialist = await specialist.save();
-        console.log(savedSpecialist)
 
         res.status(201).json({ message: 'Specialist added successfully', specialist: savedSpecialist });
     } catch (error) {
