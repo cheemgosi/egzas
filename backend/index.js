@@ -19,4 +19,4 @@ app.listen(PORT, () => {
 });
 
 
-mongoose.connect(process.env.Mongo).then(() => console.log("Connected to database")).catch((err) => console.log(err))
+mongoose.connect(process.env.Mongo).then(() => console.log("Connected to database")).catch((err) => console.log(err));

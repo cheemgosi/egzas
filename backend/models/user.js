@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const sessionSchema = new mongoose.Schema({
     jwtToken: {
         type: String,
-        unique: true,
         required: true
     },
     createdAt: {
