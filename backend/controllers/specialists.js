@@ -1,4 +1,4 @@
-const SpecialistModel = require('../models/services');
+const SpecialistModel = require('../models/specialists');
 
 exports.getAllSpecialists = async (req, res) => {
     try {
