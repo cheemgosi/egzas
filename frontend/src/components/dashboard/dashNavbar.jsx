@@ -9,14 +9,14 @@ const dashNavbar = () => {
         <div>
             <Navbar expand="lg" className="bg-body-tertiary" >
             <Container>
-                <Navbar.Brand href="/admin" className='fs-4'>Dashboard</Navbar.Brand>
+                <Navbar.Brand href="/admin/servisai" className='fs-4'>Dashboard</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto spread">
                     <Nav.Link href="/admin/servisai" className='fs-5'>Servisai</Nav.Link>
                     <Nav.Link href="/admin/meistrai" className='fs-5'>Meistrai</Nav.Link>
-                    <Nav.Link href="/admin/vartotojai" className='fs-5'>Vartotojai</Nav.Link>
-                </Nav>
+                    </Nav>
+                    <button type="button" class="btn btn-danger max-80 font-medium">Atsijungti</button>
                 </Navbar.Collapse>
             </Container>
             </Navbar>

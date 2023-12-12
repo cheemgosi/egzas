@@ -1,11 +1,12 @@
 import React from 'react';
 import DashNavbar from '../../../components/dashboard/dashNavbar';
+import VisiMeistrai from '../../../components/dashboard/meistrai/visiMeistrai';
 
 const meistrai = () => {
     return (
         <div>
             <DashNavbar />
-            meistrai
+            <VisiMeistrai />
         </div>
     );
 };
