@@ -30,6 +30,10 @@ exports.addService = async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields' });
         
         const service = await ServiceModel.create({ name, city });
+        const savedService = await service.save();
+
+        res.status(201).json({ message: 'Service added successfully', service: savedService });
+
         res.status(201).json({ message: 'Service added successfully', service });
     } catch (error) {
         console.error(error);
