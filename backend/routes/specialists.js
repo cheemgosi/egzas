@@ -11,7 +11,7 @@ const {
 const specialistRouter = express.Router();
 
 const checkAdmin = (req, res, next) => {
-    const token = req.headers.authorization;
+    const token = req.cookies.token;
     if (!token) return res.status(401).json({ message: 'Token not provided' });
     
     jwt.verify(token, process.env.Secret, (err, decoded) => {
