@@ -11,13 +11,22 @@ const checkAdmin = async (req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.Secret);
-        if (!decoded || !decoded.username) 
+        if (!decoded || !decoded.username) {
+            res.cookie('token', '', { expires: new Date(0) });
+            await SessionModel.findOneAndDelete({ sessionId });
+            const user = await AccountModel.findOne({ 'sessions.jwtToken': token });
+
+            if (user)
+                user.sessions = user.sessions.filter(session => session.jwtToken !== token);
+
+            await user.save(); //delete the token if its invalid cause invalid either means its been tampered with or the secret aint working for it so its meh
             return res.status(401).json({ message: 'Invalid token' });
-        
+        }
+
         const user = await AccountModel.findOne({ username: decoded.username });
-        if (!user || !user.admin) 
+        if (!user || !user.admin)
             return res.status(401).json({ message: 'Unauthorized user' });
-        
+
         next();
     } catch (error) {
         console.log(error);
