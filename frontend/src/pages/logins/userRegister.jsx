@@ -71,7 +71,7 @@ const UserRegister = () => {
         <div>
           <input type='submit' value='Submit' className='btn btn-primary my-2' />
         </div>
-        {message && <p>{message}</p>}
+        {message != null && <p>{message}</p>}
       </form>
     </div>
   );
