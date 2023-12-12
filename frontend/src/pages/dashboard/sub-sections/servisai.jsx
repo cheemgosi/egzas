@@ -1,13 +1,13 @@
 import React from 'react';
 import DashNavbar from '../../../components/dashboard/dashNavbar';
-import Lentele from '../../../components/dashboard/servisai/lentele'
+import VisiServisai from '../../../components/dashboard/servisai/visiServisai'
 
 
 const servisai = () => {
     return (
         <div>
             <DashNavbar />
-            <Lentele title = "Servisai" />
+            <VisiServisai />
         </div>
     );
 };

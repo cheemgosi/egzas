@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 
-const lentele = ({title}) => {
+const visiServisai = () => {
     return (
         <div className='container-xl bg-secondary'>
             <div className="row py-3">
                 <div className="col-lg-10 text-center fs-4 text-light">
-                    {title}
+                    Visi servisai
                 </div>
                 <div className="col-lg-2 text-center fs-4">
                     <Link to="/admin/servisai/naujas">
@@ -36,4 +36,4 @@ const lentele = ({title}) => {
     );
 };
 
-export default lentele;
+export default visiServisai;
