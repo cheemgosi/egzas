@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/user', userRouter);
-app.use('/specialist', specialistRouter);
+app.use('/specialists', specialistRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
