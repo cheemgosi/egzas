@@ -39,7 +39,10 @@ const accountSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    sessions: [sessionSchema]
+    sessions: {
+        type: [sessionSchema],
+        default: []
+    }
 });
 
 const AccountModel = mongoose.model("account", accountSchema, "users");
