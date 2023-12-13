@@ -8,6 +8,29 @@ const VisiMeistrai = () => {
     const [showModal, setShowModal] = useState(false);
     const [selectedSpecialistId, setSelectedSpecialistId] = useState(null);
   
+    const handleDelete = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:3000/specialists/${id}`, {
+            method: 'DELETE',
+            credentials:"include"
+          });
+    
+          if (response.ok) {
+            // Specialist deleted successfully
+            console.log('Specialist deleted successfully');
+            // Handle further actions if needed after successful deletion
+          } else if (response.status === 404) {
+            // Specialist not found
+            setError('Specialist not found');
+          } else {
+            // Other error scenarios
+            setError('Failed to delete specialist');
+          }
+        } catch (err) {
+          // Handle network errors or exceptions
+          setError('An error occurred while deleting the specialist.');
+        }
+      };
   
   const openModal = (id) => {
     setSelectedSpecialistId(id);
@@ -97,9 +120,10 @@ const VisiMeistrai = () => {
                       </div>
                     </div>
                     <div className="col-lg-2"> 
-                      <div className="col-lg-1 opposite py-2" onClick={() => openModal(specialist._id)}>
-                        {/* Button to open modal */}
-                        <i className="bi bi-pencil text-warning dark-on-hover" ></i>
+                      <div className="col-lg-1 opposite py-2" >
+                        <i className="bi bi-pencil text-warning dark-on-hover" onClick={() => openModal(specialist._id)}></i>
+                        <i class="bi bi-x-lg text-danger dark-on-hover fs-3 mx-2" onClick={() => handleDelete(specialist._id)}></i>
+
                       </div>
                     </div>
                   </div>
@@ -108,11 +132,10 @@ const VisiMeistrai = () => {
             )}
           </div>
     
-          {/* Render the modal based on the state */}
           {showModal && selectedSpecialistId && (
             <UpdateSpecialistModal
-              id={selectedSpecialistId} // Pass the specialist ID to the modal
-              onClose={closeModal} // Pass the function to close the modal
+              id={selectedSpecialistId} 
+              onClose={closeModal}
             />
           )}
         </div>
