@@ -105,4 +105,14 @@ exports.info = async (req, res) => {
     }
 };
 
-exports.logout = (req, res) => res.clearCookie("token", { httpOnly: true }).send();
+exports.logout = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        await SessionModel.findOneAndDelete({ jwtToken: token });
+
+        res.clearCookie("token", { httpOnly: true }).send({ message: "Logout successful" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error occurred during logout" });
+    }
+};
