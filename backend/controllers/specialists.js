@@ -1,4 +1,3 @@
-const { trusted } = require('mongoose');
 const SpecialistModel = require('../models/specialists');
 
 exports.getAllSpecialists = async (req, res) => {
@@ -57,7 +56,7 @@ exports.updateSpecialist = async (req, res) => {
         
 
         const specialist = await SpecialistModel.findByIdAndUpdate(req.params.id, req.body, {
-            new: trusted
+            new: true
         });
         
         if (!specialist)
