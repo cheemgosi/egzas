@@ -13,9 +13,9 @@ exports.getAllSpecialists = async (req, res) => {
 exports.getSpecialistById = async (req, res) => {
     try {
         const specialist = await SpecialistModel.findById(req.params.id);
-        if (!specialist) 
+        if (!specialist)
             return res.status(404).json({ message: 'Specialist not found' });
-        
+
         res.status(200).json(specialist);
     } catch (error) {
         console.error(error);
@@ -25,9 +25,9 @@ exports.getSpecialistById = async (req, res) => {
 
 exports.addSpecialist = async (req, res) => {
     try {
-        if (!req.body.firstName || !req.body.lastName || !req.body.specialization || !req.body.photo || !req.body.service || !req.body.city) 
+        if (!req.body.firstName || !req.body.lastName || !req.body.specialization || !req.body.photo || !req.body.service || !req.body.city)
             return res.status(400).json({ message: 'Missing required fields' });
-        
+
         const specialist = await SpecialistModel.create(req.body);
         const savedSpecialist = await specialist.save();
 
@@ -40,19 +40,30 @@ exports.addSpecialist = async (req, res) => {
 
 exports.updateSpecialist = async (req, res) => {
     try {
-        if (!req.body.firstName || !req.body.lastName || !req.body.specialization || !req.body.photo || !req.body.service || !req.body.city) 
-            return res.status(400).json({ message: 'Missing required fields' });
+        const updateFields = {};
+        const allowedFields = ['firstName', 'lastName', 'specialization', 'photo', 'service', 'city'];
+
+        let hasUpdateField = false;
+        for (const key of allowedFields) {
+            if (req.body[key]) {
+                updateFields[key] = req.body[key];
+                hasUpdateField = true;
+            }
+        }
+
+        if (!hasUpdateField) 
+            return res.status(400).json({ message: 'At least one field to update is required' });
         
+
         const specialist = await SpecialistModel.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
         });
-
-        const updatedSpecialist = await specialist.save();
-        if (!specialist) 
-            return res.status(404).json({ message: 'Specialist not found' });
         
-        res.status(200).json({ message: 'Specialist updated successfully', updatedSpecialist });
+        if (!specialist)
+            return res.status(404).json({ message: 'Specialist not found' });
+
+        res.status(200).json({ message: 'Specialist updated successfully', specialist });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error occurred' });
@@ -62,9 +73,9 @@ exports.updateSpecialist = async (req, res) => {
 exports.deleteSpecialist = async (req, res) => {
     try {
         const specialist = await SpecialistModel.findByIdAndDelete(req.params.id);
-        if (!specialist) 
+        if (!specialist)
             return res.status(404).json({ message: 'Specialist not found' });
-        
+
         res.status(200).json({ message: 'Specialist deleted successfully' });
     } catch (error) {
         console.error(error);
