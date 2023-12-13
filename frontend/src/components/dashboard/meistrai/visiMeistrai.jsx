@@ -110,7 +110,8 @@ const VisiMeistrai = () => {
                         {specialist.specialization}
                       </div>
                       <div className="col-lg-2 border border-top-0 border-bottom-0 ">
-                        {specialist.photo}
+                        <img src={`http://localhost:3000/${specialist.photo}`} alt="" />
+                        {console.log(specialist.photo)}
                       </div>
                       <div className="col-lg-2 border border-top-0 border-bottom-0 ">
                         {specialist.service}

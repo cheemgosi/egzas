@@ -39,7 +39,8 @@ app.listen(PORT, () => {
 const generateUniqueFileName = () => `${Date.now()}-${Math.round(Math.random() * 1000)}`;
 
 app.post('/upload', (req, res) => {
-    const uploadedFile = req.files; 
+    const uploadedFile = req.files.image; 
+    console.log(uploadedFile);
 
     if (!uploadedFile) 
         return res.status(400).json({ message: 'No file provided' });

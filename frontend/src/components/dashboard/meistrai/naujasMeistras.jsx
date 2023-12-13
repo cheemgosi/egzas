@@ -50,7 +50,8 @@ const NaujasMeistras = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(specialistData)
+                body: JSON.stringify(specialistData),
+                credentials:"include"
             });
 
             // response not handled
