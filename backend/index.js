@@ -27,15 +27,35 @@ app.use('/user', userRouter);
 app.use('/specialists', specialistRouter);
 app.use('/services', serviceRouter);
 
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+const generateUniqueFileName = () => `${Date.now()}-${Math.round(Math.random() * 1000)}`;
+
+app.post('/upload', (req, res) => {
+    const uploadedFile = req.files && req.files.image; 
+
+    if (!uploadedFile) 
+        return res.status(400).json({ message: 'No file provided' });
+    
+
+    const fileName = generateUniqueFileName();
+    uploadedFile.mv(`./public/images/${fileName}.png`, (err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Failed to upload image' });
+        }
+        res.status(200).json({ message: 'Image uploaded successfully', name: `${fileName}.png` });
+    });
+});
 
 mongoose.connect(process.env.Mongo)
-.then(() => {
-    console.log("Connected to MongoDB");
-})
-.catch((err) => {
-    console.error("Error connecting to MongoDB:", err);
-});
+    .then(() => {
+        console.log("Connected to MongoDB");
+    })
+    .catch((err) => {
+        console.error("Error connecting to MongoDB:", err);
+    });
