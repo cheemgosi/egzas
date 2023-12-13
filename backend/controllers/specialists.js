@@ -47,10 +47,12 @@ exports.updateSpecialist = async (req, res) => {
             new: true,
             runValidators: true,
         });
+
+        const updatedSpecialist = await specialist.save();
         if (!specialist) 
             return res.status(404).json({ message: 'Specialist not found' });
         
-        res.status(200).json({ message: 'Specialist updated successfully', specialist });
+        res.status(200).json({ message: 'Specialist updated successfully', updatedSpecialist });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error occurred' });
