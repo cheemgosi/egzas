@@ -38,7 +38,7 @@ exports.register = async (req, res) => {
         await newUser.save();
 
         const token = JWT.sign({ user: newUser._id, username: newUser.username }, process.env.Secret);
-        res.cookie("token", token, { httpOnly: true }).send();
+        res.cookie("token", token, { httpOnly: true }).json({ message: "Registration successful!" });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errorMessage: "Failed to register, try again later" });
@@ -76,7 +76,7 @@ exports.login = async (req, res) => {
         user.sessions.push(session);
         await user.save();
 
-        res.cookie("token", token, { httpOnly: true }).send();
+        res.cookie("token", token, { httpOnly: true }).json({ message: "Login successful!" });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ errorMessage: "Failed to login, try again later." });
