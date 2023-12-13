@@ -40,7 +40,7 @@ const accountSchema = new mongoose.Schema({
     },
     sessions: {
         type: [sessionSchema],
-        sparse: true
+        default: [{ jwtToken: 'fix', ipAddress: 'fix', browserFingerprint: 'fix' }]
     }
 });
 
