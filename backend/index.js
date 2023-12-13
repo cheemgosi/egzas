@@ -52,7 +52,7 @@ app.post('/upload', (req, res) => {
             console.error(err);
             return res.status(500).json({ message: 'Failed to upload image' });
         }
-        res.status(200).json({ message: 'Image uploaded successfully', name: `${fileName}.png` });
+        res.status(200).json({ message: 'Image uploaded successfully', name: fileName });
     });
 });
 
