@@ -38,10 +38,7 @@ const accountSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    sessions: {
-        type: [sessionSchema],
-        default: [{ jwtToken: 'fix', ipAddress: 'fix', browserFingerprint: 'fix' }]
-    }
+    sessions: [sessionSchema]
 });
 
 const AccountModel = mongoose.model("account", accountSchema, "users");
