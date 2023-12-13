@@ -28,9 +28,7 @@ const UserRegister = () => {
         navigate('/login')
         alert("Registracija sekminga! Galite prisijungti")
       }
-    } catch (error) {
-      setMessage('An error occurred. Please try again.'); // Handle error cases
-    }
+    } 
   };
 
   return (
