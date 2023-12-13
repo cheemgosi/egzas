@@ -40,29 +40,30 @@ exports.addSpecialist = async (req, res) => {
 
 exports.updateSpecialist = async (req, res) => {
     try {
-        const updateFields = {};
         const allowedFields = ['firstName', 'lastName', 'specialization', 'photo', 'service', 'city'];
+        const updateFields = {};
 
-        let hasUpdateField = false;
         for (const key of allowedFields) {
             if (req.body[key]) {
                 updateFields[key] = req.body[key];
-                hasUpdateField = true;
             }
         }
 
-        if (!hasUpdateField) 
+        if (Object.keys(updateFields).length === 0) {
             return res.status(400).json({ message: 'At least one field to update is required' });
-        
+        }
 
-        const specialist = await SpecialistModel.findByIdAndUpdate(req.params.id, req.body, {
-            new: true
-        });
-        
-        if (!specialist)
+        const specialist = await SpecialistModel.findByIdAndUpdate(
+            req.params.id,
+            { $set: updateFields }, 
+            { new: true }
+        );
+
+        if (!specialist) {
             return res.status(404).json({ message: 'Specialist not found' });
+        }
 
-        res.status(200).json({ message: 'Specialist updated successfully', specialist });
+        res.status(200).json({ message: 'Specialist updated successfully', updatedSpecialist: specialist });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error occurred' });
