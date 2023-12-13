@@ -11,7 +11,9 @@ const modalRedaguotiMeistra = ({ id, onClose }) => {
   const [city, setCity] = useState('');
   const [error, setError] = useState(null);
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
     try {
       const updatedSpecialist = {
         firstName,
@@ -103,7 +105,7 @@ const modalRedaguotiMeistra = ({ id, onClose }) => {
               onChange={(e) => setCity(e.target.value)}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" >
             Update
           </Button>
           <Button variant="secondary" onClick={onClose}>
