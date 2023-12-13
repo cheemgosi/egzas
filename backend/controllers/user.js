@@ -20,18 +20,20 @@ const generateFingerprint = (req) => {
 exports.register = async (req, res) => {
     try {
         const { email, username, password } = req.body;
-        const existingUser = await AccountModel.findOne({ email: email.trim() });
+        const existingEmail = await AccountModel.findOne({ email: email.trim() });
+        const existingUsername = await AccountModel.findOne({ username: username.trim() });
 
         const errors = {
             email: !email ? "Enter valid email" : "",
             username: !username ? "Enter valid username" : "",
             password: !password || password.length < 4 ? "Password should be a minimum of 4 characters" : "",
-            existingUser: existingUser ? "An account with this email already exists" : "",
+            existingEmail: existingEmail ? "An account with this email already exists" : "",
+            existingUsername: existingUsername ? "Username already taken" : "",
         };
 
         const errorMessage = Object.values(errors).find((err) => err);
         if (errorMessage)
-            return res.status(existingUser ? 409 : 400).json({ errorMessage });
+            return res.status(existingEmail || existingUsername ? 409 : 400).json({ errorMessage });
 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new AccountModel({ email, username, password: hashedPassword });
