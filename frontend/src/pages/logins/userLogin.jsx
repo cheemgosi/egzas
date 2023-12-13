@@ -1,15 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
+    useEffect(() => {
+        // Fetch user information when component mounts if the user has a valid cookie
+        const fetchUserInfo = async () => {
+            try {
+                const userInfoResponse = await fetch('http://localhost:3000/user/info', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
+
+                if (userInfoResponse.ok) {
+                    const userInfo = await userInfoResponse.json();
+                    // Handle user information as needed
+                    console.log('User Information:', userInfo);
+                    navigate('/');
+                }
+            } catch (error) {
+                console.error('Error fetching user information:', error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/login', {
+            const response = await fetch('http://localhost:3000/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,14 +46,42 @@ const UserLogin = () => {
                     email: email,
                     password: password,
                 }),
+                credentials: 'include',
             });
 
-            const data = await response.json();
-            setMessage(data.message); // Assuming the API response contains a 'message' field
-            // You can handle the success or error message as needed
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                setMessage(data.message);
+                
+                // On successful login, fetch user information and redirect
+                const userInfoResponse = await fetch('http://localhost:3000/info', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
+
+                if (userInfoResponse.ok) {
+                    const userInfo = await userInfoResponse.json();
+                    // Handle user information as needed
+                    console.log('User Information:', userInfo);
+                }
+
+                // Redirect to "/"
+                navigate('/');
+            } else {
+                setMessage('Login successful.');
+                navigate('/'); // Redirect to "/" if login was successful (no JSON data in response)
+            }
         } catch (error) {
             console.error('Error:', error);
-            setMessage('There was an error with the login. Please try again.'); // Generic error message
+            setMessage('There was an error with the login. Please try again.');
         }
     };
 
