@@ -24,11 +24,12 @@ const UserRegister = () => {
       });
 
       const data = await response.json();
-      if(!data.message){
+      if(data.message){
         navigate('/login')
         alert("Registracija sekminga! Galite prisijungti")
       }
     } catch (error) {
+        console.log(error);
       setMessage('An error occurred. Please try again.'); // Handle error cases
     }
   };
