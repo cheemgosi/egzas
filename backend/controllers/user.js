@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
         const errors = {
             email: !email ? "Enter valid email" : "",
             username: !username ? "Enter valid username" : "",
-            password: !password || password.length < 8 ? "Password should be a minimum of 8 characters" : "",
+            password: !password || password.length < 4 ? "Password should be a minimum of 4 characters" : "",
             existingUser: existingUser ? "An account with this email already exists" : "",
         };
 
