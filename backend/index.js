@@ -1,6 +1,7 @@
 const path = require('path');
 require('dotenv').config({ path: `${path.resolve(__dirname + '/..')}/.env` });
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload')
 const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/user');
@@ -22,6 +23,8 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }))
+app.use(fileUpload())
 
 app.use('/user', userRouter);
 app.use('/specialists', specialistRouter);
