@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+
 
 const UserRegister = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,10 @@ const UserRegister = () => {
       });
 
       const data = await response.json();
-      setMessage(data.message); // Assuming API sends a JSON object with a message key
+      if(!data.message){
+        navigate('/login')
+        alert("Registracija sekminga! Galite prisijungti")
+      }
     } catch (error) {
       setMessage('An error occurred. Please try again.'); // Handle error cases
     }
@@ -71,7 +76,6 @@ const UserRegister = () => {
         <div>
           <input type='submit' value='Submit' className='btn btn-primary my-2' />
         </div>
-        {message != null && <p>{message}</p>}
       </form>
     </div>
   );
