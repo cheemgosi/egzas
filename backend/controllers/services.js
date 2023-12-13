@@ -13,9 +13,9 @@ exports.getAllServices = async (req, res) => {
 exports.getServiceById = async (req, res) => {
     try {
         const service = await ServiceModel.findById(req.params.id);
-        if (!service) 
+        if (!service)
             return res.status(404).json({ message: 'Service not found' });
-        
+
         res.status(200).json(service);
     } catch (error) {
         console.error(error);
@@ -26,9 +26,9 @@ exports.getServiceById = async (req, res) => {
 exports.addService = async (req, res) => {
     try {
         const { name, city } = req.body;
-        if (!name || !city) 
+        if (!name || !city)
             return res.status(400).json({ message: 'Missing required fields' });
-        
+
         const service = await ServiceModel.create({ name, city });
         const savedService = await service.save();
 
@@ -43,17 +43,28 @@ exports.addService = async (req, res) => {
 
 exports.updateService = async (req, res) => {
     try {
+        const updateFields = {};
         const { name, city } = req.body;
-        if (!name || !city) 
-            return res.status(400).json({ message: 'Missing required fields' });
-        
-        const service = await ServiceModel.findByIdAndUpdate(req.params.id, { name, city }, {
-            new: true,
-            runValidators: true,
-        });
-        if (!service) 
+        if (name)
+            updateFields.name = name;
+
+        if (city)
+            updateFields.city = city;
+
+        if (Object.keys(updateFields).length === 0) {
+            return res.status(400).json({ message: 'At least one field to update is required' });
+        }
+
+        const service = await ServiceModel.findByIdAndUpdate(
+            req.params.id,
+            { $set: updateFields },
+            { new: true }
+        );
+
+        if (!service)
             return res.status(404).json({ message: 'Service not found' });
-        
+
+
         res.status(200).json({ message: 'Service updated successfully', service });
     } catch (error) {
         console.error(error);
@@ -61,12 +72,13 @@ exports.updateService = async (req, res) => {
     }
 };
 
+
 exports.deleteService = async (req, res) => {
     try {
         const service = await ServiceModel.findByIdAndDelete(req.params.id);
-        if (!service) 
+        if (!service)
             return res.status(404).json({ message: 'Service not found' });
-        
+
         res.status(200).json({ message: 'Service deleted successfully' });
     } catch (error) {
         console.error(error);
